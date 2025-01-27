@@ -196,7 +196,7 @@
     });
 
     btnBuyBetterFood.addEventListener("click", ()=>{
-        if (CHOCOLAT => BetterFoodCost){
+        if (CHOCOLAT >= BetterFoodCost){
             CHOCOLAT -= BetterFoodCost
             BetterFoodCost = BetterFoodCost + BetterFoodCost
             chocolatCount.innerText = CHOCOLAT
@@ -206,7 +206,7 @@
     })
 
     btnBuyBetterLove.addEventListener("click", ()=>{
-        if (CHOCOLAT => BetterLoveCost){
+        if (CHOCOLAT >= BetterLoveCost){
             CHOCOLAT -= BetterLoveCost
             BetterLoveCost = BetterLoveCost + BetterLoveCost
             chocolatCount.innerText = CHOCOLAT
