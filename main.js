@@ -6,32 +6,89 @@
     let FOOD = 100
     let POOPY = 0
 
-    // Bonus 
-
+    let CHOCOLAT = 0
     let ChocolatTotal = 0
 
-    // définir les variables pour les jauges html
+    let CHOCOLAT_BY_CLICK = 1
+
+    let LOVE_LOST_BY_SEC = 2
+    let FOOD_LOST_BY_SEC = 5
+
+    let LOVE_RESTORE = 3
+    let FOOD_RESTORE = 3
+
+    let BUDDY_COST = 10;
+    let BUDDY_COUNT = 0;
+    let BUDDY_CHOCOLAT_BY_SEC = 1;
+    let BUDDY_LIST = [];
+
+    let BetterFoodCost = 50
+    let BetterPetCost = 100
+
+    // load data 
+
+    if (localStorage.getItem("testLocalData")) {
+        let data = localStorage.getItem("testLocalData").split("-")
+        console.log(data);
+        LOVE = parseInt(data[0])
+        FOOD = parseInt(data[1])
+        CHOCOLAT = parseInt(data[2])
+        ChocolatTotal = parseInt(data[3])
+        LOVE_RESTORE = parseInt(data[4])
+        FOOD_RESTORE = parseInt(data[5])
+        BUDDY_COUNT = parseInt(data[6])
+        
+        for (let index = 0; index < BUDDY_COUNT; index++) {
+            let buddyInterval = setInterval(() => {
+                plusChocolat(BUDDY_CHOCOLAT_BY_SEC);
+            }, 1000);
+
+            // Stocker l'intervalle dans le tableau
+            BUDDY_LIST.push(buddyInterval);
+        }
+    }
+
+
+
+
+    // définir les getelement
 
     let loveValue = document.getElementById('loveValue')
     let foodValue = document.getElementById('foodValue')
     let poopyValue = document.getElementById('poopyValue')
 
+    let chocolatCount = document.getElementById('chocolatCount')
+
+    let btnExplore = document.getElementById("btnExplore")
+    let btnFeed = document.getElementById("btnFeed")
+    let btnPet = document.getElementById("btnPet")
+
+    let btnBuyBuddy = document.getElementById("btnBuyBuddy");
+    let spanBuddyCount = document.getElementById("buddyCount");
+
+    let divGameover = document.getElementById("gameover")
+
+    let imgDog = document.getElementById("imgDog")
+
+    let btnBuyBetterFood = document.getElementById("btnBuyBetterFood")
+    let btnBuyBetterLove = document.getElementById("btnBuyBetterLove")
+
+    let save = document.getElementById("btnSAVE")
+    let reset = document.getElementById("btnRESET")
+
+    // définir l'affichage'
+
+
     loveValue.style.width = LOVE + "%"
     foodValue.style.width = FOOD + "%"
     poopyValue.style.width = POOPY + "%"
 
-    // définir chocolat 
-
-    let CHOCOLAT = 0
-    let chocolatCount = document.getElementById('chocolatCount')
-
     chocolatCount.innerText = CHOCOLAT
 
-// Consigne n°2 :
+    spanBuddyCount.textContent = BUDDY_COUNT;
 
-    let CHOCOLAT_BY_CLICK = 1
 
-    let btnExplore = document.getElementById("btnExplore")
+// function :
 
     function plusChocolat(quantity) {
         CHOCOLAT += quantity
@@ -40,15 +97,6 @@
         newUpgrade(100, btnBuyBetterFood)
         newUpgrade(250, btnBuyBetterLove)
     }
-    
-    btnExplore.addEventListener("click", () => {
-        plusChocolat(CHOCOLAT_BY_CLICK);
-    });
-    
-// Consigne n°3 :
-
-    let LOVE_LOST_BY_SEC = 2
-    let FOOD_LOST_BY_SEC = 5
 
     function lostLove(quantity) {
         if (LOVE <= 0 ){
@@ -70,19 +118,6 @@
         }
     }
 
-    let lost_interval = setInterval(() =>{
-        lostLove(LOVE_LOST_BY_SEC)
-        foodLove(FOOD_LOST_BY_SEC)
-    }, 1000)
-
-// Consigne n°4 :
-
-    let btnFeed = document.getElementById("btnFeed")
-    let btnPet = document.getElementById("btnPet")
-
-    let LOVE_RESTORE = 3
-    let FOOD_RESTORE = 3
-
     function restoreLove(quantity){
         if (LOVE < 100){
             LOVE += quantity
@@ -97,6 +132,26 @@
         }
     }
 
+    function dogHumor(param){
+        if (param <= 50){
+            imgDog.src = "./img/mad_dog.png"
+        }else{
+            imgDog.src = "./img/happy_dog.png"
+        }
+    }
+
+    function newUpgrade (total, btn){
+        if (ChocolatTotal > total){
+            btn.classList.remove("hide")
+        }
+    }
+
+// Listener :
+    
+    btnExplore.addEventListener("click", () => {
+        plusChocolat(CHOCOLAT_BY_CLICK);
+    });
+
     btnFeed.addEventListener("click", () =>{
         restoreFood(FOOD_RESTORE)
     })
@@ -104,16 +159,6 @@
     btnPet.addEventListener("click", () =>{
         restoreLove(LOVE_RESTORE)
     })
-
-// Consigne n°5 :
-
-    let btnBuyBuddy = document.getElementById("btnBuyBuddy");
-    let spanBuddyCount = document.getElementById("buddyCount");
-
-    let BUDDY_COST = 10;
-    let BUDDY_COUNT = 0;
-    let BUDDY_CHOCOLAT_BY_SEC = 1;
-    let BUDDY_LIST = [];
 
     // Écouteur d'événement pour acheter un Buddy
     btnBuyBuddy.addEventListener("click", () => {
@@ -136,37 +181,6 @@
         }
     });
 
- // Consigne n°6
-
-    let divGameover = document.getElementById("gameover")
-
-// Bonus n°1
-
-    let imgDog = document.getElementById("imgDog")
-
-    function dogHumor(param){
-        if (param <= 50){
-            imgDog.src = "./img/mad_dog.png"
-        }else{
-            imgDog.src = "./img/happy_dog.png"
-        }
-    }
-
-// Bonus n°2 
-
-    let btnBuyBetterFood = document.getElementById("btnBuyBetterFood")
-    let btnBuyBetterLove = document.getElementById("btnBuyBetterLove")
-
-
-    let BetterFoodCost = 50
-    let BetterPetCost = 100
-
-    function newUpgrade (total, btn){
-        if (ChocolatTotal > total){
-            btn.classList.remove("hide")
-        }
-    }
-
     btnBuyBetterFood.addEventListener("click", ()=>{
         if (CHOCOLAT => BetterFoodCost){
             CHOCOLAT -= BetterFoodCost
@@ -176,9 +190,33 @@
     })
 
     btnBuyBetterLove.addEventListener("click", ()=>{
-        if (CHOCOLAT => BetterFoodPet){
-            CHOCOLAT -= BetterFoodPet
+        if (CHOCOLAT => BetterPetCost){
+            CHOCOLAT -= BetterPetCost
             chocolatCount.innerText = CHOCOLAT
             LOVE_RESTORE += 3
         }
+    })
+    
+// Interval :
+
+    let lost_interval = setInterval(() =>{
+        lostLove(LOVE_LOST_BY_SEC)
+        foodLove(FOOD_LOST_BY_SEC)
+    }, 1000)
+
+    
+
+
+// Storage :
+
+    save.addEventListener('click', ()=>{
+        let s = [LOVE, FOOD, CHOCOLAT, ChocolatTotal, LOVE_RESTORE, FOOD_RESTORE, BUDDY_COUNT ]
+        s = s.join("-")
+        console.log(s);
+
+        localStorage.setItem("testLocalData", s)
+    })
+
+    reset.addEventListener('click', ()=>{
+        localStorage.clear()
     })
