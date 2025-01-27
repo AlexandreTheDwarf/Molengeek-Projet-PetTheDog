@@ -177,8 +177,9 @@
         if (CHOCOLAT >= BUDDY_COST) {
             // Déduire le coût
             CHOCOLAT -= BUDDY_COST;
-            BUDDY_COST = BUDDY_COST += BUDDY_COST
+            BUDDY_COST = BUDDY_COST + BUDDY_COST
             chocolatCount.innerText = CHOCOLAT;
+            BetterBuddyCostspan.textContent = BUDDY_COST
 
             // Augmenter le nombre de Buddies
             BUDDY_COUNT++;
@@ -197,7 +198,7 @@
     btnBuyBetterFood.addEventListener("click", ()=>{
         if (CHOCOLAT => BetterFoodCost){
             CHOCOLAT -= BetterFoodCost
-            BetterFoodCost = BetterFoodCost += BetterFoodCost
+            BetterFoodCost = BetterFoodCost + BetterFoodCost
             chocolatCount.innerText = CHOCOLAT
             BetterFoodCostspan.textContent = BetterFoodCost
             FOOD_RESTORE += 3
@@ -207,7 +208,7 @@
     btnBuyBetterLove.addEventListener("click", ()=>{
         if (CHOCOLAT => BetterLoveCost){
             CHOCOLAT -= BetterLoveCost
-            BetterLoveCost = BetterLoveCost += BetterLoveCost
+            BetterLoveCost = BetterLoveCost + BetterLoveCost
             chocolatCount.innerText = CHOCOLAT
             BetterLoveCostspan.textContent = BetterLoveCost
             LOVE_RESTORE += 3
