@@ -37,8 +37,9 @@
         LOVE_RESTORE = parseInt(data[4])
         FOOD_RESTORE = parseInt(data[5])
         BUDDY_COUNT = parseInt(data[6])
-        BetterFoodCost = parseInt(data[7])
-        BetterLoveCost = parseInt(data[8])
+        BUDDY_COST = parseInt(data[7])
+        BetterFoodCost = parseInt(data[8])
+        BetterLoveCost = parseInt(data[9])
         
         for (let index = 0; index < BUDDY_COUNT; index++) {
             let buddyInterval = setInterval(() => {
@@ -78,6 +79,7 @@
     let save = document.getElementById("btnSAVE")
     let reset = document.getElementById("btnRESET")
 
+    let BetterBuddyCostspan = document.getElementById("BetterBuddyCostspan")
     let BetterFoodCostspan = document.getElementById("BetterFoodCostspan")
     let BetterPetLovespan = document.getElementById("BetterLoveCostspan")
 
@@ -91,6 +93,8 @@
     chocolatCount.innerText = CHOCOLAT
 
     spanBuddyCount.textContent = BUDDY_COUNT;
+
+    BetterBuddyCostspan.textContent = BUDDY_COST
 
     BetterFoodCostspan.textContent = BetterFoodCost
     BetterLoveCostspan.textContent = BetterLoveCost
@@ -173,6 +177,7 @@
         if (CHOCOLAT >= BUDDY_COST) {
             // Déduire le coût
             CHOCOLAT -= BUDDY_COST;
+            BUDDY_COST = BUDDY_COST += BUDDY_COST
             chocolatCount.innerText = CHOCOLAT;
 
             // Augmenter le nombre de Buddies
@@ -222,7 +227,7 @@
 // Storage :
 
     save.addEventListener('click', ()=>{
-        let s = [LOVE, FOOD, CHOCOLAT, ChocolatTotal, LOVE_RESTORE, FOOD_RESTORE, BUDDY_COUNT, BetterFoodCost, BetterLoveCost]
+        let s = [LOVE, FOOD, CHOCOLAT, ChocolatTotal, LOVE_RESTORE, FOOD_RESTORE, BUDDY_COUNT, BUDDY_COST, BetterFoodCost, BetterLoveCost]
         s = s.join("-")
         console.log(s);
 
