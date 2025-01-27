@@ -23,7 +23,7 @@
     let BUDDY_LIST = [];
 
     let BetterFoodCost = 50
-    let BetterPetCost = 100
+    let BetterLoveCost = 100
 
     // load data 
 
@@ -37,6 +37,8 @@
         LOVE_RESTORE = parseInt(data[4])
         FOOD_RESTORE = parseInt(data[5])
         BUDDY_COUNT = parseInt(data[6])
+        BetterFoodCost = parseInt(data[7])
+        BetterLoveCost = parseInt(data[8])
         
         for (let index = 0; index < BUDDY_COUNT; index++) {
             let buddyInterval = setInterval(() => {
@@ -76,6 +78,9 @@
     let save = document.getElementById("btnSAVE")
     let reset = document.getElementById("btnRESET")
 
+    let BetterFoodCostspan = document.getElementById("BetterFoodCostspan")
+    let BetterPetLovespan = document.getElementById("BetterLoveCostspan")
+
     // définir l'affichage'
 
 
@@ -86,6 +91,9 @@
     chocolatCount.innerText = CHOCOLAT
 
     spanBuddyCount.textContent = BUDDY_COUNT;
+
+    BetterFoodCostspan.textContent = BetterFoodCost
+    BetterLoveCostspan.textContent = BetterLoveCost
 
 
 // function :
@@ -184,15 +192,19 @@
     btnBuyBetterFood.addEventListener("click", ()=>{
         if (CHOCOLAT => BetterFoodCost){
             CHOCOLAT -= BetterFoodCost
+            BetterFoodCost = BetterFoodCost += BetterFoodCost
             chocolatCount.innerText = CHOCOLAT
+            BetterFoodCostspan.textContent = BetterFoodCost
             FOOD_RESTORE += 3
         }
     })
 
     btnBuyBetterLove.addEventListener("click", ()=>{
-        if (CHOCOLAT => BetterPetCost){
-            CHOCOLAT -= BetterPetCost
+        if (CHOCOLAT => BetterLoveCost){
+            CHOCOLAT -= BetterLoveCost
+            BetterLoveCost = BetterLoveCost += BetterLoveCost
             chocolatCount.innerText = CHOCOLAT
+            BetterLoveCostspan.textContent = BetterLoveCost
             LOVE_RESTORE += 3
         }
     })
@@ -210,7 +222,7 @@
 // Storage :
 
     save.addEventListener('click', ()=>{
-        let s = [LOVE, FOOD, CHOCOLAT, ChocolatTotal, LOVE_RESTORE, FOOD_RESTORE, BUDDY_COUNT ]
+        let s = [LOVE, FOOD, CHOCOLAT, ChocolatTotal, LOVE_RESTORE, FOOD_RESTORE, BUDDY_COUNT, BetterFoodCost, BetterLoveCost]
         s = s.join("-")
         console.log(s);
 
